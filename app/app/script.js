@@ -18,23 +18,39 @@ const App = () => {
   };
 
   const startTimer = () => {
-    setTime(1200);
+    setTime(12);
     setStatus("work");
     setTimer(
       setInterval(() => {
         setTime((time) => {
           if (time === 0) {
-            setStatus("off");
+            restTime();
           }
           return time - 1;
         });
       }, 1000)
     );
   };
-  const stopTimer = () => {
+
+  const restTime = () => {
     setStatus("rest");
+    setTime(20);
+    setTimer(
+      setInterval(() => {
+        setTime((time) => {
+          if (time === 0) {
+            startTimer();
+          }
+          return time - 1;
+        });
+      }, 1000)
+    );
+  };
+
+  const stopTimer = () => {
+    setStatus("off");
     clearInterval(timer);
-    setTimer(null);
+    setTimer(1200);
   };
 
   return (
@@ -62,7 +78,7 @@ const App = () => {
         </button>
       )}
       {status !== "off" && (
-        <button className="btn" onClick={stopTimer}>
+        <button className="btn" onClick={() => stopTimer()}>
           Stop
         </button>
       )}
