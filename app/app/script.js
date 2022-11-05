@@ -6,7 +6,6 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [timer, setTimer] = useState(null);
 
-  
   const padZero = (value) => {
     if (value < 10) return `0${value}`;
     else return value;
@@ -17,43 +16,26 @@ const App = () => {
     const seconds = time - minutes * 60;
     return `${padZero(minutes)}:${padZero(seconds)}`;
   };
-
-  const clock = (status) => {
-    if (status === "work") {
-      startTimer();
-    } else if (status === "rest") {
-      restTime();
+  useEffect(() => {
+    let clock
+    if (timer) {
+      clock = setInterval(() => {
+        setTime((time) => time - 1);
+      }, 1000);
     }
-  };
+    return () => clearInterval(clock);
+  }, timer);
 
   const startTimer = () => {
-    setTime(12);
+    setTimer(true);
     setStatus("work");
-    setTimer(
-      setInterval(() => {
-        setTime((time) => {
-          if (time === 0) {
-            clock("rest");
-          }
-          return time - 1;
-        });
-      }, 1000)
-    );
+    setTime(12);
   };
 
   const restTime = () => {
-    setStatus("rest");
-    setTime(20);
-    setTimer(
-      setInterval(() => {
-        setTime((time) => {
-          if (time === 0) {
-            setStatus("work");
-          }
-          return time - 1;
-        });
-      }, 1000)
-    );
+    setTimer(true);
+    setStatus("work");
+    setTime(12);
   };
 
   const stopTimer = () => {
@@ -61,7 +43,22 @@ const App = () => {
     clearInterval(timer);
     setTimer(1200);
   };
-  
+
+  const playBell = () => {
+    const bell = new Audio("./sounds/bell.wav");
+    bell.play();
+  }
+
+  if (time === 0 && status === "work") {
+    setStatus("rest");
+    setTime(20);
+    playBell()
+  } else if ( time === 0 && status == "rest") {
+    setStatus("work");
+    setTime(20);
+    playBell()
+  };
+
   return (
     <div>
       <h1>Protect your eyes</h1>
@@ -82,7 +79,7 @@ const App = () => {
       {status === "rest" && <img src="./images/rest.png" />}
       {status !== "off" && <div className="timer">{formatTime(time)}</div>}
       {status === "off" && (
-        <button className="btn" onClick={() => clock("work")}>
+        <button className="btn" onClick={() => startTimer()}>
           Start
         </button>
       )}
