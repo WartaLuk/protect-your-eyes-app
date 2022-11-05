@@ -2,7 +2,7 @@
 
 body {
   background: #282c34;
-  color: #fff;
+  color: rgb(246, 244, 244);
   font-family: 'Open Sans', sans-serif;
   padding: 30px;
   text-align: center;
@@ -18,11 +18,11 @@ p {
 }
 
 .btn {
-  background: #0064e7;
+  background: #015fda;
   border: none;
   border-radius: 15px;
   padding: 10px 25px;
-  color: #fff;
+  color: rgb(246, 244, 244);
   font-family: inherit;
   margin: 20px 10px;
   text-transform: uppercase;
@@ -37,7 +37,7 @@ p {
 
 .btn-close {
   background: rgb(161, 0, 0);
-  color: #fff;
+  color: rgb(246, 244, 244);
   font-weight: bold;
   border-radius:  50%;
   border: none;

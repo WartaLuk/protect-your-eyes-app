@@ -17,7 +17,7 @@ const App = () => {
     return `${padZero(minutes)}:${padZero(seconds)}`;
   };
   useEffect(() => {
-    let clock
+    let clock;
     if (timer) {
       clock = setInterval(() => {
         setTime((time) => time - 1);
@@ -47,17 +47,17 @@ const App = () => {
   const playBell = () => {
     const bell = new Audio("./sounds/bell.wav");
     bell.play();
-  }
+  };
 
   if (time === 0 && status === "work") {
     setStatus("rest");
     setTime(20);
-    playBell()
-  } else if ( time === 0 && status == "rest") {
+    playBell();
+  } else if (time === 0 && status == "rest") {
     setStatus("work");
     setTime(1200);
-    playBell()
-  };
+    playBell();
+  }
 
   const closeApp = () => {
     window.close();
@@ -92,7 +92,9 @@ const App = () => {
           Stop
         </button>
       )}
-      <button onClick={() => closeApp()} className="btn btn-close">X</button>
+      <button onClick={() => closeApp()} className="btn btn-close">
+        X
+      </button>
     </div>
   );
 };
