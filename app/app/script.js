@@ -59,6 +59,10 @@ const App = () => {
     playBell()
   };
 
+  const closeApp = () => {
+    window.close();
+  };
+
   return (
     <div>
       <h1>Protect your eyes</h1>
@@ -88,7 +92,7 @@ const App = () => {
           Stop
         </button>
       )}
-      <button className="btn btn-close">X</button>
+      <button onClick={() => closeApp()} className="btn btn-close">X</button>
     </div>
   );
 };
