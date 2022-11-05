@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 
 const App = () => {
@@ -6,6 +6,7 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [timer, setTimer] = useState(null);
 
+  
   const padZero = (value) => {
     if (value < 10) return `0${value}`;
     else return value;
@@ -17,6 +18,14 @@ const App = () => {
     return `${padZero(minutes)}:${padZero(seconds)}`;
   };
 
+  const clock = (status) => {
+    if (status === "work") {
+      startTimer();
+    } else if (status === "rest") {
+      restTime();
+    }
+  };
+
   const startTimer = () => {
     setTime(12);
     setStatus("work");
@@ -24,7 +33,7 @@ const App = () => {
       setInterval(() => {
         setTime((time) => {
           if (time === 0) {
-            restTime();
+            clock("rest");
           }
           return time - 1;
         });
@@ -39,7 +48,7 @@ const App = () => {
       setInterval(() => {
         setTime((time) => {
           if (time === 0) {
-            startTimer();
+            setStatus("work");
           }
           return time - 1;
         });
@@ -52,7 +61,7 @@ const App = () => {
     clearInterval(timer);
     setTimer(1200);
   };
-
+  
   return (
     <div>
       <h1>Protect your eyes</h1>
@@ -73,7 +82,7 @@ const App = () => {
       {status === "rest" && <img src="./images/rest.png" />}
       {status !== "off" && <div className="timer">{formatTime(time)}</div>}
       {status === "off" && (
-        <button className="btn" onClick={startTimer}>
+        <button className="btn" onClick={() => clock("work")}>
           Start
         </button>
       )}
