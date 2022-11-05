@@ -29,13 +29,13 @@ const App = () => {
   const startTimer = () => {
     setTimer(true);
     setStatus("work");
-    setTime(12);
+    setTime(1200);
   };
 
   const restTime = () => {
     setTimer(true);
     setStatus("work");
-    setTime(12);
+    setTime(20);
   };
 
   const stopTimer = () => {
@@ -55,7 +55,7 @@ const App = () => {
     playBell()
   } else if ( time === 0 && status == "rest") {
     setStatus("work");
-    setTime(20);
+    setTime(1200);
     playBell()
   };
 
